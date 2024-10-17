@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Toast from '../Toast';
+import ToastShelf from '../ToastShelf';
 import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
@@ -10,7 +10,7 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 const ToastPlayground = () => {
   const [message, setMessage] = useState('');
   const [variant, setVariant] = useState(VARIANT_OPTIONS[0]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [toasts, setToasts] = useState([]);
 
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
@@ -20,12 +20,22 @@ const ToastPlayground = () => {
     setVariant(e.target.value);
   };
 
-  const handlePopToast = () => {
-    setIsOpen(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setToasts([
+      ...toasts,
+      {
+        id: crypto.randomUUID(),
+        message,
+        variant,
+      },
+    ]);
   };
 
-  const handleOnClose = () => {
-    setIsOpen(false);
+  const handleCloseToast = (toastIndex) => {
+    const newToasts = [...toasts];
+    newToasts.splice(toastIndex, 1);
+    setToasts(newToasts);
   };
 
   return (
@@ -35,11 +45,9 @@ const ToastPlayground = () => {
         <h1>Toast Playground</h1>
       </header>
 
-      {isOpen && (
-        <Toast variant={variant} message={message} onClose={handleOnClose} />
-      )}
+      <ToastShelf toasts={toasts} onClose={handleCloseToast} />
 
-      <div className={styles.controlsWrapper}>
+      <form onSubmit={handleSubmit} className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -80,10 +88,10 @@ const ToastPlayground = () => {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={handlePopToast}>Pop Toast!</Button>
+            <Button type="submit">Pop Toast!</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
