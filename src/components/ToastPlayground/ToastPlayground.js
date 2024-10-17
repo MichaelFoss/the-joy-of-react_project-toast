@@ -6,7 +6,7 @@ import styles from './ToastPlayground.module.css';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
-function ToastPlayground() {
+const ToastPlayground = () => {
   const [message, setMessage] = useState('');
 
   const handleMessageChange = (e) => {
@@ -69,6 +69,6 @@ function ToastPlayground() {
       </div>
     </div>
   );
-}
+};
 
 export default ToastPlayground;
