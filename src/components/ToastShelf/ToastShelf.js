@@ -3,7 +3,7 @@ import React from 'react';
 import Toast from '../Toast';
 import styles from './ToastShelf.module.css';
 
-function ToastShelf() {
+const ToastShelf = () => {
   return (
     <ol className={styles.wrapper}>
       <li className={styles.toastWrapper}>
@@ -14,6 +14,6 @@ function ToastShelf() {
       </li>
     </ol>
   );
-}
+};
 
 export default ToastShelf;
