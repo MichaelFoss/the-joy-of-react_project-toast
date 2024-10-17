@@ -8,9 +8,14 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 const ToastPlayground = () => {
   const [message, setMessage] = useState('');
+  const [variant, setVariant] = useState(VARIANT_OPTIONS[0]);
 
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
+  };
+
+  const handleVariantChange = (e) => {
+    setVariant(e.target.value);
   };
 
   return (
@@ -49,6 +54,8 @@ const ToastPlayground = () => {
                   type="radio"
                   name="variant"
                   value={variantOption}
+                  onChange={handleVariantChange}
+                  checked={variantOption === variant}
                 />
                 {variantOption}
               </label>
