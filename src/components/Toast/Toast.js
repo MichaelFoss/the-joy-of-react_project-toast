@@ -18,7 +18,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast() {
+const Toast = () => {
   return (
     <div className={`${styles.toast} ${styles.notice}`}>
       <div className={styles.iconContainer}>
@@ -33,6 +33,6 @@ function Toast() {
       </button>
     </div>
   );
-}
+};
 
 export default Toast;
