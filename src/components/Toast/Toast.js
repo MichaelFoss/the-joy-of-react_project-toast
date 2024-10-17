@@ -18,21 +18,33 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast() {
+const Toast = ({ variant, message, onClose }) => {
+  const Component = ICONS_BY_VARIANT[variant];
+  if (!Component) {
+    const acceptedVariants = Object.keys(ICONS_BY_VARIANT);
+    throw new RangeError(
+      `${variant} is not accepted variant type of [${acceptedVariants.join(
+        ', '
+      )}].`
+    );
+  }
+
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={`${styles.toast} ${styles[variant] || ''}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <Component size={24} />
       </div>
-      <p className={styles.content}>
-        16 photos have been uploaded
-      </p>
-      <button className={styles.closeButton}>
+      <p className={styles.content}>{message}</p>
+      <button className={styles.closeButton} onClick={handleClose}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
-}
+};
 
 export default Toast;
