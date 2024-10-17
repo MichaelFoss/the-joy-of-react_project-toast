@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { ToastContext } from '../ToastProvider';
 import Toast from '../Toast';
 import styles from './ToastShelf.module.css';
 
-const ToastShelf = ({ toasts = [] }) => {
+const ToastShelf = () => {
+  const { toasts, dismissToast } = useContext(ToastContext);
   if (!(toasts.length > 0)) {
     return null;
   }
 
-  const handleClose = (toastIndex) => {
-    onClose(toastIndex);
+  const handleClose = (id) => {
+    dismissToast(id);
   };
 
   return (
@@ -21,7 +23,7 @@ const ToastShelf = ({ toasts = [] }) => {
             <Toast
               variant={variant}
               message={message}
-              onClose={() => handleClose(toastIndex)}
+              onClose={() => handleClose(id)}
             />
           </li>
         );
